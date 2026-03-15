@@ -1,7 +1,52 @@
-
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
 import styles from './Projects.module.css';
+
+const TiltedImage = ({ src, alt }: { src: string; alt: string }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    x.set(event.clientX - centerX);
+    y.set(event.clientY - centerY);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  const rotateX = useTransform(y, [-100, 100], [10, -10]);
+  const rotateY = useTransform(x, [-100, 100], [-10, 10]);
+
+  return (
+    <motion.div
+      className={styles.imageContainer}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        perspective: 1000
+      }}
+    >
+      <motion.img
+        src={src}
+        alt={alt}
+        className={styles.image}
+        style={{
+          rotateX,
+          rotateY,
+          transformStyle: "preserve-3d"
+        }}
+        whileHover={{ scale: 1.05 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      />
+    </motion.div>
+  );
+};
 
 const projects = [
   {
@@ -61,15 +106,7 @@ const Projects = () => {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: index * 0.2, duration: 0.6 }}
             >
-              <div className={styles.imageContainer}>
-                <div className={styles.imageOverlay}></div>
-                <img 
-                  src={project.image} 
-                  alt={project.title} 
-                  className={styles.image}
-                  loading="lazy"
-                />
-              </div>
+              <TiltedImage src={project.image} alt={project.title} />
               
               <div className={styles.projectContent}>
                 <h3 className={styles.projectTitle}>{project.title}</h3>

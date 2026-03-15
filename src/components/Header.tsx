@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Github, Linkedin, Mail } from 'lucide-react';
+import ShinyText from './ShinyText';
 import styles from './Header.module.css';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const isHome = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,7 +20,21 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = ['About', 'Projects', 'Experience', 'Contact'];
+  interface NavItem {
+    name: string;
+    path: string;
+    isHash?: boolean;
+  }
+
+  const navItems: NavItem[] = [
+    { name: 'Home', path: '/' },
+    { name: 'Experience', path: '/experience' },
+    { name: 'Education', path: '/education' },
+    { name: 'Projects', path: '/projects' },
+    { name: 'Certificates', path: '/certificates' },
+    { name: 'Fun', path: '/fun' },
+    { name: 'Contact', path: '/contact' }
+  ];
 
   // Toggle body scroll when mobile menu is open
   useEffect(() => {
@@ -34,14 +53,21 @@ const Header = () => {
       <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
         <div className={`container ${styles.navContainer}`}>
           <a href="#" className={styles.logo} onClick={() => setIsMobileMenuOpen(false)}>
-            KRS<span className={styles.accent}>.</span>
+            <ShinyText text="KRS" speed={2.5} shineColor="#3b82f6" />
+            <span className={styles.accent}>.</span>
           </a>
 
           <nav className={styles.navLinks}>
             {navItems.map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`} className={styles.navLink}>
-                {item}
-              </a>
+              item.isHash && !isHome ? (
+                <a key={item.name} href={item.path} className={styles.navLink}>
+                  <ShinyText text={item.name} speed={3} pauseOnHover={true} />
+                </a>
+              ) : (
+                <Link key={item.name} to={item.path} className={styles.navLink}>
+                  <ShinyText text={item.name} speed={3} pauseOnHover={true} />
+                </Link>
+              )
             ))}
           </nav>
 
@@ -52,7 +78,7 @@ const Header = () => {
             <a href="https://linkedin.com/in/" target="_blank" rel="noreferrer" className={styles.socialIcon}>
               <Linkedin size={20} />
             </a>
-            <a href="mailto:contact@example.com" className={styles.socialIcon}>
+            <a href="mailto:rohansaieswar@gmail.com" className={styles.socialLink} aria-label="Email">
               <Mail size={20} />
             </a>
           </div>
@@ -76,17 +102,34 @@ const Header = () => {
             className={styles.mobileMenu}
           >
             {navItems.map((item, i) => (
-              <motion.a 
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className={styles.mobileLink}
-                onClick={() => setIsMobileMenuOpen(false)}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-              >
-                {item}
-              </motion.a>
+              item.isHash && !isHome ? (
+                 <motion.a 
+                  key={item.name}
+                  href={item.path}
+                  className={styles.mobileLink}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  <ShinyText text={item.name} speed={3} />
+                </motion.a>
+              ) : (
+                <motion.div
+                  key={item.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  <Link 
+                    to={item.path}
+                    className={styles.mobileLink}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <ShinyText text={item.name} speed={3} />
+                  </Link>
+                </motion.div>
+              )
             ))}
             
             <motion.div 
@@ -102,7 +145,7 @@ const Header = () => {
               <a href="https://linkedin.com/in/" target="_blank" rel="noreferrer" className={styles.socialIcon}>
                 <Linkedin size={24} />
               </a>
-              <a href="mailto:contact@example.com" className={styles.socialIcon}>
+              <a href="mailto:rohansaieswar@gmail.com" className={styles.socialLink} aria-label="Email">
                 <Mail size={24} />
               </a>
             </motion.div>

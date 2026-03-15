@@ -1,6 +1,7 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight, Download } from 'lucide-react';
+import RotatingText from './RotatingText';
 import styles from './Hero.module.css';
 
 const Hero = () => {
@@ -38,7 +39,19 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
           >
-            Building digital products, brands, and experiences.
+            Building 
+            <RotatingText
+              texts={['digital products', 'modern web apps', 'robust interfaces', 'experiences']}
+              mainClassName={styles.rotatingTextContainer}
+              staggerFrom="last"
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              exit={{ y: '-120%' }}
+              staggerDuration={0.025}
+              splitLevelClassName={styles.rotatingTextSplit}
+              transition={{ type: 'spring', damping: 30, stiffness: 400 }}
+              rotationInterval={3000}
+            />
           </motion.h2>
           
           <motion.p 

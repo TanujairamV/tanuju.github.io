@@ -82,6 +82,21 @@
   color: var(--text-muted);
   font-weight: 800;
   margin-bottom: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rotatingTextContainer {
+  display: inline-flex;
+  overflow: hidden;
+  color: var(--accent-color);
+}
+
+.rotatingTextSplit {
+  overflow: hidden;
+  padding-bottom: 0.25rem;
 }
 
 .description {

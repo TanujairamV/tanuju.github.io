@@ -1,0 +1,100 @@
+.bannerWrapper {
+  padding: 4rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.electricCard {
+  position: relative;
+  border-radius: 1.5rem;
+  padding: 3px; /* This represents the border width */
+  background: linear-gradient(90deg, #1f2937, #111827);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  width: 100%;
+  max-width: 800px;
+}
+
+.electricCard:hover {
+  transform: translateY(-5px);
+}
+
+.electricCard::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    transparent,
+    transparent,
+    transparent,
+    var(--accent-color),
+    #8b5cf6,
+    var(--accent-color),
+    transparent
+  );
+  animation: rotate 4s linear infinite;
+  z-index: 0;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.innerContent {
+  position: relative;
+  background: var(--bg-color);
+  border-radius: calc(1.5rem - 3px);
+  padding: 3rem;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+.title {
+  font-size: 2rem;
+  color: var(--text-main);
+}
+
+.description {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  max-width: 500px;
+}
+
+.fiverrLogo {
+  color: #1dbf73; /* Fiverr green */
+  font-weight: 900;
+  font-family: Arial, Helvetica, sans-serif; /* Fiverr font matching */
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+.linkButton {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-main);
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.electricCard:hover .linkButton {
+  background: rgba(29, 191, 115, 0.1);
+  border-color: #1dbf73;
+  color: #1dbf73;
+}

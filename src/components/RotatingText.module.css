@@ -1,0 +1,43 @@
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  white-space: pre-wrap;
+  position: relative;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.lines {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.words {
+  display: flex;
+  flex-wrap: wrap;
+  white-space: pre-wrap;
+  position: relative;
+}
+
+.inlineFlex {
+  display: inline-flex;
+}
+
+.inlineBlock {
+  display: inline-block;
+}
+
+.whitespacePre {
+  white-space: pre;
+}
