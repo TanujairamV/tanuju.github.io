@@ -10,7 +10,8 @@ const Footer = () => {
           <div className={styles.top}>
             <div className={styles.brand}>
               <a href="#" className={styles.logo}>
-                KRS<span className="accent-color">.</span>
+                <img src="/favicon.png" alt="Logo" className={styles.footerLogoIcon} />
+                KRS.<span className="accent-color"></span>
               </a>
               <p className={styles.tagline}>
                 Building digital experiences with passion and purpose.

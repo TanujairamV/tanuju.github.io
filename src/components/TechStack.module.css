@@ -1,0 +1,142 @@
+.techStack {
+  padding: 10rem 0;
+  position: relative;
+  background: radial-gradient(circle at 50% -20%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.pills {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 999px;
+  color: var(--accent-color);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 1.25rem;
+  max-width: 650px;
+  margin: 1rem auto 0;
+  line-height: 1.6;
+}
+
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.bentoCard {
+  position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  overflow: hidden;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  aspect-ratio: 1 / 1;
+}
+
+.bentoCard:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  transform: translateY(-8px);
+  background: rgba(139, 92, 246, 0.03);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cardContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+}
+
+.iconWrapper {
+  width: 54px;
+  height: 54px;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-color);
+  margin: 0 auto 1.5rem; /* Center icon */
+}
+
+.textWrapper {
+  text-align: center; /* Center text */
+  width: 100%;
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.75rem;
+}
+
+.skillsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center; /* Center skill tags */
+}
+
+.skillTag {
+  padding: 0.3rem 0.75rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+}
+
+@media (max-width: 850px) {
+  .bentoGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .bentoGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .bentoCard {
+    aspect-ratio: 1 / 1; 
+    padding: 2rem;
+  }
+  .cardTitle {
+    font-size: 1.25rem;
+  }
+}

@@ -4,35 +4,35 @@ import { GraduationCap, BookOpen, Award } from 'lucide-react';
 const educationList = [
   {
     degree: "Senior Secondary Education",
-    institution: "FIITJEE GLOBAL SCHOOL, Vengambakkam",
+    institution: "FIITJEE GLOBAL SCHOOL",
     period: "2024 - 2026",
     description: "Completing senior secondary education with a focus on advanced academics and competitive exam preparation.",
     icon: <GraduationCap size={20} />
   },
   {
     degree: "Secondary Education",
-    institution: "Velammal New-Gen School, Medavakkam",
+    institution: "Velammal New-Gen School",
     period: "2022 - 2024",
     description: "Completed secondary education with a strong foundation in core subjects.",
     icon: <BookOpen size={20} />
   },
   {
     degree: "Middle School Education",
-    institution: "Satya Sai Institute of Educare, Chrompet",
+    institution: "Satya Sai Institute of Educare",
     period: "2020 - 2022",
     description: "Focused on holistic education and foundational academic development.",
     icon: <BookOpen size={20} />
   },
   {
     degree: "Primary & Middle Education",
-    institution: "Narayana E-Techno School, Pallavaram",
+    institution: "Narayana E-Techno School",
     period: "2015 - 2020",
     description: "Formative years of education emphasizing technology-integrated learning.",
     icon: <BookOpen size={20} />
   },
   {
     degree: "Early Education",
-    institution: "DAV Baba School, Velachery",
+    institution: "DAV Baba School",
     period: "2014 - 2015",
     description: "Early childhood education.",
     icon: <Award size={20} />

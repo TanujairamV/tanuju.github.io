@@ -5,6 +5,7 @@ import styles from './CustomCursor.module.css';
 
 const CustomCursor = () => {
   const [isHovering, setIsHovering] = useState(false);
+  const [hasMoved, setHasMoved] = useState(false);
   const location = useLocation();
   const isFunPage = location.pathname.includes('/fun');
 
@@ -19,16 +20,19 @@ const CustomCursor = () => {
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
+      if (!hasMoved && (e.clientX !== 0 || e.clientY !== 0)) {
+        setHasMoved(true);
+      }
     };
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (
-        target.tagName.toLowerCase() === 'a' ||
-        target.tagName.toLowerCase() === 'button' ||
+        target.tagName?.toLowerCase() === 'a' ||
+        target.tagName?.toLowerCase() === 'button' ||
         target.closest('a') ||
         target.closest('button') ||
-        target.classList.contains('clickable')
+        target.classList?.contains('clickable')
       ) {
         setIsHovering(true);
       } else {
@@ -43,7 +47,7 @@ const CustomCursor = () => {
       window.removeEventListener('mousemove', moveCursor);
       window.removeEventListener('mouseover', handleMouseOver);
     };
-  }, [cursorX, cursorY]);
+  }, [cursorX, cursorY, hasMoved]);
 
   // Disable default cursor
   useEffect(() => {
@@ -62,8 +66,13 @@ const CustomCursor = () => {
     };
   }, [location.pathname]);
 
+  if (!hasMoved) return null;
+
   return (
-    <div className={`${styles.cursor} ${isFunPage ? styles.cursorFun : ''}`}>
+    <div 
+      className={`${styles.cursor} ${isFunPage ? styles.cursorFun : ''}`}
+      style={{ display: hasMoved ? 'block' : 'none' }}
+    >
       <motion.div
         className={styles.cursorDot}
         style={{
@@ -72,6 +81,7 @@ const CustomCursor = () => {
         }}
         animate={{
           scale: isHovering ? 0 : 1,
+          opacity: hasMoved ? 1 : 0
         }}
         transition={{ duration: 0.2 }}
       />
@@ -84,7 +94,7 @@ const CustomCursor = () => {
         animate={{
           scale: isHovering ? 1.5 : 1,
           backgroundColor: isHovering && !isFunPage ? 'white' : 'transparent',
-          opacity: isHovering && !isFunPage ? 1 : 0.5
+          opacity: hasMoved ? (isHovering && !isFunPage ? 1 : 0.5) : 0
         }}
         transition={{ duration: 0.2 }}
       />

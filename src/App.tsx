@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import CustomCursor from './components/CustomCursor';
 import SpotifyWidget from './components/SpotifyWidget';
+import DynamicIsland from './components/DynamicIsland';
 import Header from './components/Header';
 import Home from './pages/Home';
 import Fun from './pages/Fun';
@@ -16,6 +17,7 @@ function App() {
     <>
       <CustomCursor />
       <Header />
+      <DynamicIsland />
       <SpotifyWidget />
       <Routes>
         <Route path="/" element={<Home />} />

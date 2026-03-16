@@ -44,7 +44,7 @@ const ScrollVelocity: React.FC<ScrollVelocityProps> = ({ texts, velocity = 5, cl
     <div className={`overflow-hidden flex whitespace-nowrap flex-nowrap ${className}`} style={{ overflow: 'hidden', display: 'flex', whiteSpace: 'nowrap' }}>
       <motion.div className="flex whitespace-nowrap flex-nowrap uppercase font-bold text-6xl" style={{ x, display: 'flex', gap: '2rem' }}>
         {texts.map((text, i) => (
-          <span key={i} className="block mr-8" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', color: 'transparent', WebkitTextStroke: '2px var(--glass-border)', paddingRight: '2rem' }}>
+          <span key={i} className="block mr-8" style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', color: 'transparent', WebkitTextStroke: '1px var(--glass-border)', paddingRight: '2rem' }}>
             {text}
           </span>
         ))}

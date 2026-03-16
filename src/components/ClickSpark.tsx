@@ -29,7 +29,7 @@ const ClickSpark = ({ color = "var(--accent-color)", sparkCount = 12 }) => {
         >
           {Array.from({ length: sparkCount }).map((_, i) => {
             const angle = (i * 360) / sparkCount;
-            const radius = 60;
+            const radius = 100;
             const destX = Math.cos((angle * Math.PI) / 180) * radius;
             const destY = Math.sin((angle * Math.PI) / 180) * radius;
 
@@ -43,11 +43,11 @@ const ClickSpark = ({ color = "var(--accent-color)", sparkCount = 12 }) => {
                   opacity: 0,
                   scale: 0,
                 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
                 style={{
                   position: 'absolute',
-                  width: '6px',
-                  height: '6px',
+                  width: '8px',
+                   height: '2px',
                   borderRadius: '50%',
                   backgroundColor: color,
                   boxShadow: `0 0 10px ${color}`,

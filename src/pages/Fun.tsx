@@ -7,7 +7,7 @@ import ArchLinuxTerminal from '../components/ArchLinuxTerminal';
 
 const Fun = () => {
   return (
-    <div className="section" style={{ minHeight: '200vh', paddingTop: '8rem', position: 'relative', overflowX: 'hidden' }}>
+    <div style={{ minHeight: '200vh', paddingTop: '8rem', position: 'relative' }}>
       <ClickSpark color="#8b5cf6" sparkCount={20} />
       
       {/* Background Shape Blur Elements */}
@@ -49,14 +49,14 @@ const Fun = () => {
         </section>
       </div>
 
-      <div style={{ padding: '6rem 0', transform: 'rotate(-2deg)', background: 'rgba(0,0,0,0.5)', borderTop: '1px solid var(--glass-border)', borderBottom: '1px solid var(--glass-border)' }}>
+      <div style={{ padding: '4rem 0', background: 'rgba(0,0,0,0.5)', borderTop: '1px solid var(--glass-border)', borderBottom: '1px solid var(--glass-border)' }}>
         <ScrollVelocity 
           texts={['React', 'TypeScript', 'Framer Motion', 'Vite', 'UI/UX']} 
           velocity={3} 
         />
       </div>
       
-      <div style={{ padding: '6rem 0', transform: 'rotate(2deg)', marginTop: '-2rem', background: 'rgba(15,23,42,0.5)', borderTop: '1px solid var(--glass-border)', borderBottom: '1px solid var(--glass-border)' }}>
+      <div style={{ padding: '4rem 0', marginTop: '0', background: 'rgba(15,23,42,0.5)', borderTop: '1px solid var(--glass-border)', borderBottom: '1px solid var(--glass-border)' }}>
         <ScrollVelocity 
           texts={['Performant', 'Accessible', 'Stunning', 'Interactive']} 
           velocity={-4} 

@@ -1,74 +1,42 @@
 
 import { motion } from 'framer-motion';
-import { Code2, Layout, Database, Smartphone } from 'lucide-react';
 import styles from './About.module.css';
 
-const services = [
-  {
-    icon: <Code2 size={32} />,
-    title: 'Web Development',
-    description: 'Building responsive, performant websites using modern technologies like React, Next.js, and TypeScript.'
-  },
-  {
-    icon: <Layout size={32} />,
-    title: 'UI/UX Design',
-    description: 'Creating intuitive, engaging user interfaces with a focus on accessibility and modern aesthetics.'
-  },
-  {
-    icon: <Database size={32} />,
-    title: 'Backend Engineering',
-    description: 'Designing robust APIs and database architectures for scalable applications.'
-  },
-  {
-    icon: <Smartphone size={32} />,
-    title: 'App Development',
-    description: 'Developing cross-platform mobile experiences that feel native and fast.'
-  }
-];
-
 const About = () => {
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-    e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
-  };
-
   return (
     <section className={`section ${styles.about}`} id="about">
-      <div className="container">
-        <motion.div 
+      <div className="container" style={{ maxWidth: '800px' }}>
+        <motion.div
           className={styles.header}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-gradient">About Me</h2>
-          <p className={styles.subtitle}>My skills and expertise</p>
+          <p className={styles.subtitle}>A passionate tech enthusiast from India 🇮🇳</p>
         </motion.div>
 
-        <div className={styles.grid}>
-          {services.map((service, index) => (
-            <motion.div
-              key={service.title}
-              className={`glass ${styles.card}`}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              whileHover={{ y: -10, transition: { duration: 0.2 } }}
-              onMouseMove={handleMouseMove}
-            >
-              <div className={styles.iconWrapper}>
-                {service.icon}
-              </div>
-              <h3 className={styles.cardTitle}>{service.title}</h3>
-              <p className={styles.cardDescription}>{service.description}</p>
-            </motion.div>
-          ))}
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          style={{ lineHeight: 1.9, color: 'var(--text-muted)', fontSize: '1.1rem', textAlign: 'center' }}
+        >
+          <p style={{ marginBottom: '1.5rem' }}>
+            Hey! I'm <strong style={{ color: 'var(--text-main)' }}>Konda Rohan Saieswar</strong> — a tech-obsessed Grade 12 student from India 🇮🇳, who recently completed a specialized Computer Science course at <strong style={{ color: 'var(--accent-color)' }}>IITM</strong> via their School Connect program. I live and breathe Linux, automation, and clean code. ⚡
+          </p>
+          <p style={{ marginBottom: '1.5rem' }}>
+            My journey started back in 2020 with robotics and electronics 🤖, and since then I've gone deep into the rabbit hole — flashing custom ROMs on phones 📱, installing and ricing Arch Linux on my laptop 🐧, setting up minimal Hyprland environments, and writing scripts that make my machine feel truly mine.
+          </p>
+          <p style={{ marginBottom: '1.5rem' }}>
+            On the web side, I build fast, modern interfaces using <strong style={{ color: 'var(--text-main)' }}>React, TypeScript, and Vite</strong> — prioritizing clean design and smooth performance. I also offer <strong style={{ color: 'var(--text-main)' }}>SEO & content writing</strong> services on Fiverr 💼, where I'm just getting started on my freelancing journey.
+          </p>
+          <p>
+            When I'm not coding, you'll find me tweaking my dotfiles, exploring new distros, or listening to music 🎵. I believe in learning by doing — and I've got the broken installations to prove it. 😄
+          </p>
+        </motion.div>
       </div>
     </section>
   );

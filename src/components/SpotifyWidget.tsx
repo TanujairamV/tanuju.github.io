@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Music2 } from 'lucide-react';
 import styles from './SpotifyWidget.module.css';
@@ -8,15 +8,55 @@ interface SpotifyData {
   title: string;
   artist: string;
   songUrl: string;
+  albumImageUrl?: string;
 }
 
 const SpotifyWidget = () => {
-  const [data] = useState<SpotifyData>({
-    isPlaying: true, // Show bars animating to imply activity
-    title: 'Listen with me',
-    artist: 'Follow me on Spotify',
+  const [data, setData] = useState<SpotifyData>({
+    isPlaying: false,
+    title: 'Not playing',
+    artist: 'Spotify',
     songUrl: 'https://open.spotify.com/user/31jvlqqvdmeux47mctirqusrxuki'
   });
+
+  useEffect(() => {
+    const fetchNowPlaying = async () => {
+      try {
+        const response = await fetch('/.netlify/functions/now-playing');
+        
+        // Handle non-JSON responses (like 404 HTML fallbacks in dev)
+        const contentType = response.headers.get('content-type');
+        if (!response.ok || !contentType || !contentType.includes('application/json')) {
+          throw new Error('Invalid response from server');
+        }
+
+        const songData = await response.json();
+        
+        if (songData.isPlaying) {
+          setData({
+            isPlaying: true,
+            title: songData.title,
+            artist: songData.artist,
+            songUrl: songData.songUrl,
+            albumImageUrl: songData.albumImageUrl
+          });
+        } else {
+          setData(prev => ({
+            ...prev,
+            isPlaying: false,
+            title: 'Not playing',
+            artist: 'Spotify'
+          }));
+        }
+      } catch (error) {
+        // Silent catch to prevent console flooding
+      }
+    };
+
+    fetchNowPlaying();
+    const interval = setInterval(fetchNowPlaying, 30000); // Update every 30 seconds
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <AnimatePresence>

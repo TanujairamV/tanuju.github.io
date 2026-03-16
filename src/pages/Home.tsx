@@ -1,6 +1,7 @@
 import Hero from '../components/Hero';
 import About from '../components/About';
-import Projects from '../components/Projects';
+import TechStack from '../components/TechStack';
+import StatsSection from '../components/StatsSection';
 import FiverrBanner from '../components/FiverrBanner';
 import Footer from '../components/Footer';
 
@@ -10,7 +11,8 @@ const Home = () => {
       <main>
         <Hero />
         <About />
-        <Projects />
+        <TechStack />
+        <StatsSection />
         <FiverrBanner />
       </main>
       <Footer />

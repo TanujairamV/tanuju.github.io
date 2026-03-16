@@ -21,7 +21,7 @@ const Hero = () => {
             transition={{ delay: 0.2, duration: 0.6 }}
           >
             <span className={styles.badge}>Available for work</span>
-            Hi, I'm
+            <span className={styles.hiText}>Hi, I'm</span>
           </motion.div>
           
           <motion.h1 
@@ -60,7 +60,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
           >
-            A passionate Software Engineer specializing in building exceptional digital experiences. Currently focused on creating accessible, human-centered products.
+            A passionate Grade 12 student specializing in building exceptional digital experiences. Currently focused on creating accessible, human-centered products.
           </motion.p>
           
           <motion.div 
@@ -87,7 +87,8 @@ const Hero = () => {
           <div className={styles.imageWrapper}>
             <div className={styles.glowOverlay}></div>
             <div className={styles.profilePlaceholder}>
-              <span className={styles.initials}>KRS</span>
+              <img src="/favicon.png" alt="Icon" className={styles.heroBirdIcon} />
+              <span className={styles.initials}>KRS.</span>
             </div>
           </div>
         </motion.div>
