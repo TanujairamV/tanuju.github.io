@@ -46,7 +46,7 @@ export default function SpotifyWidget() {
           right: "32px",
           zIndex: 9999,
           padding: "16px",
-          borderRadius: "24px", // Apple-style continuous curves
+          borderRadius: "24px",
           width: "fit-content",
           minWidth: "280px",
           maxWidth: "340px",
@@ -96,8 +96,11 @@ export default function SpotifyWidget() {
                   color: "rgba(255, 255, 255, 0.4)",
                 }}
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 11.5V6H14.5V9H17V6V5.5C17 4.67 16.33 4 15.5 4H12H11.5C10.67 4 10 4.67 10 5.5V6H9.5C8.67 6 8 6.67 8 7.5V11H7.5C6.67 11 6 11.67 6 12.5C6 13.33 6.67 14 7.5 14H10H10.5C11.33 14 12 13.33 12 12.5V11.5Z"/>
+                {/* PROPER MUSIC NOTE ICON */}
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 18V5l12-2v13"></path>
+                  <circle cx="6" cy="18" r="3"></circle>
+                  <circle cx="18" cy="16" r="3"></circle>
                 </svg>
               </div>
             )}
@@ -130,109 +133,3 @@ export default function SpotifyWidget() {
               {isPlaying ? song.artist : "Spotify"}
             </span>
           </div>
-
-          {/* iOS STYLE WAVEFORM */}
-          {isPlaying && (
-            <div style={{ display: "flex", gap: "2px", alignItems: "center", height: "16px", paddingLeft: "8px" }}>
-              {[...Array(4)].map((_, i) => (
-                <div
-                  key={i}
-                  style={{
-                    width: "3px",
-                    height: "100%",
-                    background: "#fff", // White instead of green for Apple look
-                    borderRadius: "2px",
-                    animation: `iosWave 1.2s infinite ease-in-out ${i * 0.15}s`,
-                    opacity: 0.8,
-                  }}
-                />
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* BOTTOM ROW: SLIDER */}
-        {isPlaying && (
-          <div style={{ width: "100%", padding: "0 4px" }}>
-            <Slider defaultValue={30} startingValue={0} maxValue={100} />
-          </div>
-        )}
-
-        <style>
-          {`
-          @keyframes iosWave {
-            0%, 100% { height: 4px; }
-            50% { height: 16px; }
-          }
-        `}
-        </style>
-      </div>
-    </a>
-  );
-}
-
-/* =========================
-   PURE INLINE ELASTIC SLIDER
-========================= */
-
-interface SliderProps {
-  defaultValue: number;
-  startingValue: number;
-  maxValue: number;
-}
-
-const Slider = ({ defaultValue, startingValue, maxValue }: SliderProps) => {
-  const [value, setValue] = useState(defaultValue);
-  const sliderRef = useRef<HTMLDivElement>(null);
-  const clientX = useMotionValue(0);
-
-  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (e.buttons > 0 && sliderRef.current) {
-      const { left, width } = sliderRef.current.getBoundingClientRect();
-      let newValue =
-        startingValue +
-        ((e.clientX - left) / width) * (maxValue - startingValue);
-
-      newValue = Math.min(Math.max(newValue, startingValue), maxValue);
-      setValue(newValue);
-      clientX.jump(e.clientX);
-    }
-  };
-
-  return (
-    <div
-      ref={sliderRef}
-      style={{
-        position: "relative",
-        display: "flex",
-        width: "100%",
-        alignItems: "center",
-        padding: "6px 0",
-        cursor: "pointer",
-      }}
-      onPointerMove={handlePointerMove}
-      onPointerDown={handlePointerMove}
-    >
-      {/* Track Background */}
-      <motion.div
-        style={{
-          width: "100%",
-          height: "6px",
-          background: "rgba(255, 255, 255, 0.15)",
-          borderRadius: "999px",
-          overflow: "hidden",
-        }}
-      >
-        {/* Track Fill */}
-        <div
-          style={{
-            height: "100%",
-            background: "#fff", // Apple white fill
-            width: `${(value / maxValue) * 100}%`,
-            transition: "width 0.1s ease-out",
-          }}
-        />
-      </motion.div>
-    </div>
-  );
-};
