@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue } from "motion/react";
 
 /* =========================
-   SPOTIFY WIDGET
+   SPOTIFY WIDGET - APPLE GLASS EDITION
 ========================= */
 
 export default function SpotifyWidget() {
@@ -34,7 +34,7 @@ export default function SpotifyWidget() {
       rel="noopener noreferrer"
       style={{
         textDecoration: "none",
-        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+        fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
       }}
     >
       <div
@@ -45,120 +45,105 @@ export default function SpotifyWidget() {
           bottom: "32px",
           right: "32px",
           zIndex: 9999,
-          padding: "16px 20px",
-          borderRadius: "16px",
+          padding: "16px",
+          borderRadius: "24px", // Apple-style continuous curves
           width: "fit-content",
-          minWidth: "260px",
-          maxWidth: "360px",
+          minWidth: "280px",
+          maxWidth: "340px",
           display: "flex",
-          flexDirection: "column", // Key for conditional content below
-          gap: "14px",
-          backdropFilter: "blur(28px)",
-          background: isPlaying
-            ? "linear-gradient(135deg, rgba(29, 185, 84, 0.25) 0%, rgba(10, 10, 10, 0.7) 40%, rgba(5, 5, 5, 0.9) 100%)"
-            : "linear-gradient(135deg, rgba(50, 50, 50, 0.4) 0%, rgba(20, 20, 20, 0.7) 40%, rgba(5, 5, 5, 0.9) 100%)",
-          border: "1px solid rgba(255, 255, 255, 0.08)",
+          flexDirection: "column",
+          gap: "16px",
+          
+          // APPLE GLASSMORPHISM EFFECT
+          background: "rgba(20, 20, 20, 0.4)",
+          backdropFilter: "blur(40px) saturate(180%)",
+          WebkitBackdropFilter: "blur(40px) saturate(180%)",
+          border: "1px solid rgba(255, 255, 255, 0.12)",
+          boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
+          
           color: "#FAFAFA",
-          boxShadow: isPlaying
-            ? "0 10px 40px -10px rgba(29, 185, 84, 0.3), 0 5px 20px -10px rgba(0, 0, 0, 0.2)"
-            : "0 10px 40px -10px rgba(0, 0, 0, 0.5), 0 5px 20px -10px rgba(0, 0, 0, 0.2)",
-          transition: "all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1)",
-          transform: hover ? "translateY(-6px) scale(1.02)" : "none",
+          transition: "all 0.4s cubic-bezier(0.25, 1, 0.5, 1)",
+          transform: hover ? "translateY(-4px) scale(1.02)" : "none",
           overflow: "hidden",
         }}
       >
-        {/* FIRST ROW: Art, Text, Visualizer */}
-        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          {/* ART / ICON CONTAINER */}
+        {/* TOP ROW: Album Art & Text */}
+        <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+          {/* ARTWORK */}
           <div style={{ flexShrink: 0 }}>
             {isPlaying ? (
               <img
                 src={song.albumArt}
-                width={48}
-                height={48}
-                alt="Art"
+                width={52}
+                height={52}
+                alt="Album Art"
                 style={{
-                  borderRadius: "10px",
+                  borderRadius: "12px",
                   objectFit: "cover",
-                  boxShadow: "0 2px 10px rgba(0, 0, 0, 0.4)",
+                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
                 }}
               />
             ) : (
               <div
                 style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: "10px",
+                  width: 52,
+                  height: 52,
+                  borderRadius: "12px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  background: "rgba(255, 255, 255, 0.12)",
-                  color: "#999",
-                  textShadow: "0 1px 1px rgba(0, 0, 0, 0.5)",
+                  background: "rgba(255, 255, 255, 0.08)",
+                  color: "rgba(255, 255, 255, 0.4)",
                 }}
               >
-                {/* SVG note only when idle */}
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 11.5V6H14.5V9H17V6V5.5C17 4.67 16.33 4 15.5 4H12H11.5C10.67 4 10 4.67 10 5.5V6H9.5C8.67 6 8 6.67 8 7.5V11H7.5C6.67 11 6 11.67 6 12.5C6 13.33 6.67 14 7.5 14H10H10.5C11.33 14 12 13.33 12 12.5V11.5Z" fill="#1DB954" />
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 11.5V6H14.5V9H17V6V5.5C17 4.67 16.33 4 15.5 4H12H11.5C10.67 4 10 4.67 10 5.5V6H9.5C8.67 6 8 6.67 8 7.5V11H7.5C6.67 11 6 11.67 6 12.5C6 13.33 6.67 14 7.5 14H10H10.5C11.33 14 12 13.33 12 12.5V11.5Z"/>
                 </svg>
               </div>
             )}
           </div>
 
-          {/* TEXT CONTENT & MARQUEE OPTIMIZATION */}
-          <div
-            style={{
-              flex: 1,
-              overflow: "hidden",
-              maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
-              WebkitMaskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
-            }}
-          >
-            <div
+          {/* TEXT */}
+          <div style={{ display: "flex", flexDirection: "column", flex: 1, overflow: "hidden" }}>
+            <span
               style={{
-                display: "flex",
-                flexDirection: "column",
-                animation: isPlaying && hover ? "marquee 12s linear infinite" : "none",
+                fontWeight: 600,
+                fontSize: "15px",
+                letterSpacing: "-0.3px",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
               }}
             >
-              <span
-                style={{
-                  fontWeight: 700,
-                  fontSize: "14px",
-                  whiteSpace: "nowrap",
-                  letterSpacing: "-0.2px",
-                  textShadow: "0 1px 2px rgba(0,0,0,0.5)",
-                }}
-              >
-                {isPlaying ? song.title : "Spotify Idle"}
-              </span>
-              <span
-                style={{
-                  fontSize: "12px",
-                  opacity: 0.8,
-                  whiteSpace: "nowrap",
-                  letterSpacing: "-0.1px",
-                  textShadow: "0 1px 1px rgba(0,0,0,0.5)",
-                  color: isPlaying ? "#FAFAFA" : "#999", // Greyed text only when idle
-                }}
-              >
-                {isPlaying ? song.artist : "No music playing"}
-              </span>
-            </div>
+              {isPlaying ? song.title : "Not Playing"}
+            </span>
+            <span
+              style={{
+                fontSize: "13px",
+                opacity: 0.6,
+                letterSpacing: "-0.1px",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
+              {isPlaying ? song.artist : "Spotify"}
+            </span>
           </div>
 
-          {/* REFINED & EXPANDED WAVEFORM */}
+          {/* iOS STYLE WAVEFORM */}
           {isPlaying && (
-            <div style={{ display: "flex", gap: "2px", alignItems: "flex-end", height: "16px", flexShrink: 0 }}>
-              {[...Array(6)].map((_, i) => (
+            <div style={{ display: "flex", gap: "2px", alignItems: "center", height: "16px", paddingLeft: "8px" }}>
+              {[...Array(4)].map((_, i) => (
                 <div
                   key={i}
                   style={{
-                    width: "2px",
+                    width: "3px",
                     height: "100%",
-                    background: "#1DB954",
-                    borderRadius: "1px",
-                    animation: `wave 1.2s infinite ease-in-out ${i * 0.1}s`,
+                    background: "#fff", // White instead of green for Apple look
+                    borderRadius: "2px",
+                    animation: `iosWave 1.2s infinite ease-in-out ${i * 0.15}s`,
+                    opacity: 0.8,
                   }}
                 />
               ))}
@@ -166,42 +151,18 @@ export default function SpotifyWidget() {
           )}
         </div>
 
-        {/* 🎚 INTERACTIVE SLIDER (Below Row 1, only when playing) */}
+        {/* BOTTOM ROW: SLIDER */}
         {isPlaying && (
-          <ElasticSlider
-            defaultValue={50}
-            startingValue={0}
-            maxValue={100}
-            className="w-full"
-            leftIcon={<span style={{ fontSize: "12px" }}>🎵</span>}
-            rightIcon={<span style={{ fontSize: "12px" }}>🔊</span>}
-          />
-        )}
-
-        {/* IDLE FOOTER (Below Row 1, only when idle) */}
-        {!isPlaying && (
-          <div
-            style={{
-              textAlign: "center",
-              fontSize: "11px",
-              opacity: 0.4,
-              fontStyle: "italic",
-            }}
-          >
-            🎧 waiting for your next vibe...
+          <div style={{ width: "100%", padding: "0 4px" }}>
+            <Slider defaultValue={30} startingValue={0} maxValue={100} />
           </div>
         )}
 
-        {/* ANIMATION KEYFRAMES */}
         <style>
           {`
-          @keyframes marquee {
-            0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
-          }
-          @keyframes wave {
-            0%, 100% { height: 5px; opacity: 0.7; }
-            50% { height: 16px; opacity: 1; }
+          @keyframes iosWave {
+            0%, 100% { height: 4px; }
+            50% { height: 16px; }
           }
         `}
         </style>
@@ -211,54 +172,16 @@ export default function SpotifyWidget() {
 }
 
 /* =========================
-   ELASTIC SLIDER (TYPED FOR TS)
+   PURE INLINE ELASTIC SLIDER
 ========================= */
-
-interface ElasticSliderProps {
-  defaultValue?: number;
-  startingValue?: number;
-  maxValue?: number;
-  className?: string;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
-}
-
-const ElasticSlider = ({
-  defaultValue = 50,
-  startingValue = 0,
-  maxValue = 100,
-  className = "",
-  leftIcon = <>-</>,
-  rightIcon = <>+</>,
-}: ElasticSliderProps) => {
-  return (
-    <div className={`flex flex-col items-center justify-center gap-4 w-full ${className}`}>
-      <Slider
-        defaultValue={defaultValue}
-        startingValue={startingValue}
-        maxValue={maxValue}
-        leftIcon={leftIcon}
-        rightIcon={rightIcon}
-      />
-    </div>
-  );
-};
 
 interface SliderProps {
   defaultValue: number;
   startingValue: number;
   maxValue: number;
-  leftIcon: React.ReactNode;
-  rightIcon: React.ReactNode;
 }
 
-const Slider = ({
-  defaultValue,
-  startingValue,
-  maxValue,
-  leftIcon,
-  rightIcon,
-}: SliderProps) => {
+const Slider = ({ defaultValue, startingValue, maxValue }: SliderProps) => {
   const [value, setValue] = useState(defaultValue);
   const sliderRef = useRef<HTMLDivElement>(null);
   const clientX = useMotionValue(0);
@@ -277,24 +200,39 @@ const Slider = ({
   };
 
   return (
-    <motion.div className="flex w-full items-center gap-4">
-      {leftIcon}
-
-      <div
-        ref={sliderRef}
-        className="relative flex w-full items-center py-2 cursor-pointer"
-        onPointerMove={handlePointerMove}
-        onPointerDown={handlePointerMove}
+    <div
+      ref={sliderRef}
+      style={{
+        position: "relative",
+        display: "flex",
+        width: "100%",
+        alignItems: "center",
+        padding: "6px 0",
+        cursor: "pointer",
+      }}
+      onPointerMove={handlePointerMove}
+      onPointerDown={handlePointerMove}
+    >
+      {/* Track Background */}
+      <motion.div
+        style={{
+          width: "100%",
+          height: "6px",
+          background: "rgba(255, 255, 255, 0.15)",
+          borderRadius: "999px",
+          overflow: "hidden",
+        }}
       >
-        <motion.div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-green-500"
-            style={{ width: `${(value / maxValue) * 100}%` }}
-          />
-        </motion.div>
-      </div>
-
-      {rightIcon}
-    </motion.div>
+        {/* Track Fill */}
+        <div
+          style={{
+            height: "100%",
+            background: "#fff", // Apple white fill
+            width: `${(value / maxValue) * 100}%`,
+            transition: "width 0.1s ease-out",
+          }}
+        />
+      </motion.div>
+    </div>
   );
 };
