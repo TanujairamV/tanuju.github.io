@@ -1,163 +1,90 @@
+/* ... existing imports ... */
+
 export default function SpotifyWidget() {
-  const [song, setSong] = useState<any>(null);
-  const [hover, setHover] = useState(false);
-
-  async function getNowPlaying() {
-    try {
-      const res = await fetch("https://project-o0epg.vercel.app/api/now-playing");
-      const data = await res.json();
-      setSong(data);
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  useEffect(() => {
-    getNowPlaying();
-    const interval = setInterval(getNowPlaying, 10000);
-    return () => clearInterval(interval);
-  }, []);
+  /* ... existing state and useEffect ... */
 
   const isPlaying = song && song.isPlaying;
 
   return (
-    <a
-      href={isPlaying ? song.songUrl : "#"}
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{ textDecoration: "none" }}
-    >
+    <a href={isPlaying ? song.songUrl : "#"} target="_blank" rel="noopener noreferrer">
       <div
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         style={{
+          /* ... existing styles ... */
           position: "fixed",
           bottom: "28px",
           right: "28px",
-          zIndex: 9999,
-
           padding: "16px",
-          // Extra right padding for the waveform if playing
-          paddingRight: isPlaying ? "20px" : "16px",
-
           borderRadius: "24px",
-
-          // ✨ ADAPTIVE WIDTH LOGIC
-          width: "fit-content", 
-          // Removed minWidth/maxWidth to let content dictate size
+          width: "320px", // Fixed base width to keep it consistent
           display: "flex",
           flexDirection: "column",
           gap: "12px",
-
           backdropFilter: "blur(18px)",
           background: isPlaying
             ? "linear-gradient(135deg, rgba(29,185,84,0.15), rgba(0,0,0,0.6))"
             : "linear-gradient(135deg, rgba(255,255,255,0.05), rgba(0,0,0,0.6))",
-
           border: "1px solid rgba(255,255,255,0.12)",
-          boxShadow: isPlaying
-            ? "0 10px 40px rgba(0,0,0,0.4), 0 0 20px rgba(29,185,84,0.2)"
-            : "0 10px 30px rgba(0,0,0,0.3)",
-
           color: "white",
-          transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1)",
-          transform: hover ? "scale(1.02) translateY(-4px)" : "scale(1)",
-          overflow: "hidden",
+          overflow: "hidden", // Crucial for marquee
         }}
       >
-        {/* TOP SECTION */}
         <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-          {/* ALBUM ART */}
+          {/* IMAGE */}
           <div style={{ flexShrink: 0 }}>
-            {isPlaying ? (
-              <img
-                src={song.albumArt}
-                width={52}
-                height={52}
-                style={{ borderRadius: "10px", objectFit: "cover" }}
-              />
-            ) : (
-              <div style={{
-                width: 52, height: 52, borderRadius: "10px",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                background: "rgba(255,255,255,0.05)", color: "#aaa"
-              }}>♪</div>
-            )}
+             {/* ... album art img ... */}
           </div>
 
-          {/* TEXT CONTAINER - Grows with content */}
+          {/* MARQUEE TEXT CONTAINER */}
           <div style={{ 
+            flex: 1, 
+            overflow: "hidden", 
             display: "flex", 
-            flexDirection: "column", 
-            justifyContent: "center",
-            minWidth: "120px" // Minimum to keep it from looking squashed
+            flexDirection: "column",
+            maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)" // Fades edges
           }}>
             {isPlaying ? (
-              <>
+              <div style={{ 
+                display: "flex", 
+                flexDirection: "column",
+                // This makes the text slide if it's long
+                animation: hover ? "marquee 8s linear infinite" : "none" 
+              }}>
                 <span style={{
                   fontWeight: 600,
-                  fontSize: "15px",
-                  whiteSpace: "nowrap", // Keeps it on one line; widget will widen
-                  letterSpacing: "-0.01em"
+                  fontSize: "14px",
+                  whiteSpace: "nowrap",
                 }}>
                   {song.title}
                 </span>
                 <span style={{
-                  fontSize: "12px",
+                  fontSize: "11px",
                   opacity: 0.7,
                   whiteSpace: "nowrap"
                 }}>
                   {song.artist}
                 </span>
-              </>
+              </div>
             ) : (
-              <>
-                <span style={{ fontWeight: 600, fontSize: "14px" }}>Spotify Idle</span>
-                <span style={{ fontSize: "11px", opacity: 0.5 }}>No music playing</span>
-              </>
+              /* ... Idle Text ... */
             )}
           </div>
 
           {/* WAVEFORM */}
-          {isPlaying && (
-            <div style={{ 
-              display: "flex", 
-              gap: "3px", 
-              alignItems: "center",
-              marginLeft: "10px" // Space between text and bars
-            }}>
-              {[...Array(4)].map((_, i) => (
-                <div
-                  key={i}
-                  style={{
-                    width: "3px",
-                    height: "12px",
-                    background: "#1db954",
-                    borderRadius: "2px",
-                    animation: `wave 1s infinite ${i * 0.2}s`,
-                  }}
-                />
-              ))}
-            </div>
-          )}
+          {/* ... existing waveform code ... */}
         </div>
 
-        {/* SLIDER - Width matches the parent automatically */}
-        {isPlaying && (
-          <div style={{ marginTop: "4px" }}>
-            <ElasticSlider
-              defaultValue={50}
-              startingValue={0}
-              maxValue={100}
-              className="w-full"
-              leftIcon={<span style={{ fontSize: "12px", opacity: 0.6 }}>🎵</span>}
-              rightIcon={<span style={{ fontSize: "12px", opacity: 0.6 }}>🔊</span>}
-            />
-          </div>
-        )}
+        {/* SLIDER */}
+        {/* ... existing slider code ... */}
 
         <style>
           {`
+          @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); } 
+          }
+          
           @keyframes wave {
             0% { height: 6px; }
             50% { height: 16px; }
