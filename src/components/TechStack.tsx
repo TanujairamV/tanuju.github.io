@@ -9,6 +9,8 @@ import {
 } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 import styles from './TechStack.module.css';
+import LogoLoop from './LogoLoop';
+import { SiCplusplus, SiPython, SiTypescript, SiReact, SiNextdotjs, SiNodedotjs, SiExpress, SiFirebase, SiFramer, SiTailwindcss, SiArchlinux, SiNixos, SiNeovim, SiDocker, SiGit } from 'react-icons/si';
 
 interface TechItemProps {
   title: string;
@@ -74,6 +76,24 @@ const BentoCard = ({ title, icon, skills }: TechItemProps) => {
 };
 
 const TechStack = () => {
+  const techLogos = [
+    { node: <SiCplusplus size={32} title="C++" />, title: "C++" },
+    { node: <SiPython size={32} title="Python" />, title: "Python" },
+    { node: <SiTypescript size={32} title="TypeScript" />, title: "TypeScript" },
+    { node: <SiReact size={32} title="React" />, title: "React" },
+    { node: <SiNextdotjs size={32} title="Next.js" />, title: "Next.js" },
+    { node: <SiNodedotjs size={32} title="Node.js" />, title: "Node.js" },
+    { node: <SiExpress size={32} title="Express" />, title: "Express" },
+    { node: <SiFirebase size={32} title="Firebase" />, title: "Firebase" },
+    { node: <SiFramer size={32} title="Framer Motion" />, title: "Framer Motion" },
+    { node: <SiTailwindcss size={32} title="Tailwind CSS" />, title: "Tailwind CSS" },
+    { node: <SiArchlinux size={32} title="Arch Linux" />, title: "Arch Linux" },
+    { node: <SiNixos size={32} title="NixOS" />, title: "NixOS" },
+    { node: <SiNeovim size={32} title="Neovim" />, title: "Neovim" },
+    { node: <SiDocker size={32} title="Docker" />, title: "Docker" },
+    { node: <SiGit size={32} title="Git" />, title: "Git" },
+  ];
+
   return (
     <section className={styles.techStack} id="arsenal">
       <div className="container">
@@ -90,6 +110,18 @@ const TechStack = () => {
           <p className={styles.subtitle}>
             A curated selection of languages, frameworks, and system utilities that power my daily workflow.
           </p>
+        </div>
+
+        <div className={styles.marqueeSection}>
+          <LogoLoop 
+            logos={techLogos} 
+            speed={40} 
+            gap={60} 
+            logoHeight={32} 
+            fadeOut={true} 
+            fadeOutColor="var(--bg-color)"
+            scaleOnHover={true}
+          />
         </div>
 
         <div className={styles.bentoGrid}>

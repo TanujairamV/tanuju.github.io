@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Download } from 'lucide-react';
 import RotatingText from './RotatingText';
+import ShapeBlur from './ShapeBlur';
 import styles from './Hero.module.css';
 
 const Hero = () => {
@@ -86,6 +87,16 @@ const Hero = () => {
         >
           <div className={styles.imageWrapper}>
             <div className={styles.glowOverlay}></div>
+            <div className={styles.shapeBlurWrapper}>
+              <ShapeBlur 
+                variation={2} 
+                shapeSize={1.1} 
+                roundness={0.5} 
+                borderSize={0.02} 
+                circleSize={0.3} 
+                circleEdge={0.5}
+              />
+            </div>
             <div className={styles.profilePlaceholder}>
               <img src="/favicon.png" alt="Icon" className={styles.heroBirdIcon} />
               <span className={styles.initials}>KRS.</span>

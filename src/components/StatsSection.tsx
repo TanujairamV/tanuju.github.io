@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Code2, Terminal, Monitor, Zap, Star, Clock, Award, Users } from 'lucide-react';
+import { Code2, Terminal, Monitor, Zap, Star, Coffee, Award, Users } from 'lucide-react';
 
 const initialStats = [
   { value: '5+', label: 'OS Distros Tested', icon: <Monitor size={28} /> },
   { value: '10+', label: 'Custom ROMs Flashed', icon: <Terminal size={28} /> },
   { value: '2026', label: 'Freelancing Started', icon: <Star size={28} /> },
-  { value: '∞', label: 'Hours in Terminal', icon: <Clock size={28} /> },
+  { value: '∞', label: 'Coffee Fuelled', icon: <Coffee size={28} /> },
   { value: 'IITM', label: 'School Connect Certified', icon: <Award size={28} /> },
   { value: '100%', label: 'Passion for Tech', icon: <Zap size={28} /> },
   { value: '3+', label: 'Years of Experience', icon: <Code2 size={28} /> },
@@ -16,18 +16,18 @@ const StatsSection = () => {
   const [visitorCount, setVisitorCount] = useState<string>('...');
 
   useEffect(() => {
-    // Using CounterAPI.dev (Modern and reliable public hitting counter)
-    // Namespace: rohan-portfolio-v2 | Key: visitors
-    fetch('https://api.counterapi.dev/v1/rohan-portfolio-v2/visitors/up')
+    fetch('https://api.counterapi.dev/v1/rohan-portfolio/visitors')
       .then(res => res.json())
       .then(data => {
-        if (data.count) {
-          setVisitorCount(data.count.toLocaleString());
+        if (data && data.count) {
+          setVisitorCount(data.count.toLocaleString() + '+');
+        } else {
+          setVisitorCount('100+');
         }
       })
-      .catch(() => {
-        // Fallback if API is down
-        setVisitorCount('1,250+'); 
+      .catch(err => {
+        console.error('Error fetching visitor count:', err);
+        setVisitorCount('100+');
       });
   }, []);
 
