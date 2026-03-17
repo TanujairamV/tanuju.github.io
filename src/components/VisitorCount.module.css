@@ -1,0 +1,37 @@
+.visitorCount {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary, #888);
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.visitorCount:hover {
+  opacity: 1;
+}
+
+.icon {
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.visitorCount:hover .icon {
+  opacity: 1;
+}
+
+.text {
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .visitorCount {
+    font-size: 0.75rem;
+  }
+
+  .icon {
+    width: 14px;
+    height: 14px;
+  }
+}

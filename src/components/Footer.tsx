@@ -1,6 +1,7 @@
 
 import { Github, Linkedin, Mail, Heart } from 'lucide-react';
 import styles from './Footer.module.css';
+import VisitorCount from './VisitorCount';
 
 const Footer = () => {
   return (
@@ -38,6 +39,7 @@ const Footer = () => {
             <p className={styles.madeWith}>
               Designed & Built with <Heart size={14} className={styles.heart} />
             </p>
+            <VisitorCount />
           </div>
         </div>
       </div>

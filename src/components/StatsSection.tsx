@@ -16,19 +16,29 @@ const StatsSection = () => {
   const [visitorCount, setVisitorCount] = useState<string>('...');
 
   useEffect(() => {
-    fetch('https://api.counterapi.dev/v1/rohan-portfolio/visitors')
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.count) {
+    const fetchVisitorCount = async () => {
+      try {
+        const response = await fetch('/.netlify/functions/visitor-count?action=get');
+        const data = await response.json();
+        
+        if (data.success && data.count !== undefined) {
           setVisitorCount(data.count.toLocaleString() + '+');
         } else {
-          setVisitorCount('100+');
+          setVisitorCount('0+');
         }
-      })
-      .catch(err => {
+        
+        // Increment count (only once per session)
+        if (!sessionStorage.getItem('visitor-counted')) {
+          await fetch('/.netlify/functions/visitor-count?action=increment');
+          sessionStorage.setItem('visitor-counted', 'true');
+        }
+      } catch (err) {
         console.error('Error fetching visitor count:', err);
-        setVisitorCount('100+');
-      });
+        setVisitorCount('0+');
+      }
+    };
+    
+    fetchVisitorCount();
   }, []);
 
   const stats = [
