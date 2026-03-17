@@ -1,11 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  animate,
-  motion,
-  useMotionValue,
-  useMotionValueEvent,
-  useTransform,
-} from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { motion, useMotionValue } from "motion/react";
 
 /* =========================
    SPOTIFY WIDGET
@@ -17,9 +11,7 @@ export default function SpotifyWidget() {
 
   async function getNowPlaying() {
     try {
-      const res = await fetch(
-        "https://project-o0epg.vercel.app/api/now-playing"
-      );
+      const res = await fetch("https://project-o0epg.vercel.app/api/now-playing");
       const data = await res.json();
       setSong(data);
     } catch (err) {
@@ -93,6 +85,7 @@ export default function SpotifyWidget() {
                 src={song.albumArt}
                 width={52}
                 height={52}
+                alt="Album Art"
                 style={{
                   borderRadius: "12px",
                   objectFit: "cover",
@@ -217,29 +210,32 @@ export default function SpotifyWidget() {
 }
 
 /* =========================
-   ELASTIC SLIDER (UNCHANGED)
+   ELASTIC SLIDER (TYPED FOR TS)
 ========================= */
 
-const MAX_OVERFLOW = 50;
+interface ElasticSliderProps {
+  defaultValue?: number;
+  startingValue?: number;
+  maxValue?: number;
+  className?: string;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+}
 
 const ElasticSlider = ({
   defaultValue = 50,
   startingValue = 0,
   maxValue = 100,
   className = "",
-  isStepped = false,
-  stepSize = 1,
   leftIcon = <>-</>,
   rightIcon = <>+</>,
-}) => {
+}: ElasticSliderProps) => {
   return (
     <div className={`flex flex-col items-center justify-center gap-4 w-full ${className}`}>
       <Slider
         defaultValue={defaultValue}
         startingValue={startingValue}
         maxValue={maxValue}
-        isStepped={isStepped}
-        stepSize={stepSize}
         leftIcon={leftIcon}
         rightIcon={rightIcon}
       />
@@ -247,41 +243,26 @@ const ElasticSlider = ({
   );
 };
 
+interface SliderProps {
+  defaultValue: number;
+  startingValue: number;
+  maxValue: number;
+  leftIcon: React.ReactNode;
+  rightIcon: React.ReactNode;
+}
+
 const Slider = ({
   defaultValue,
   startingValue,
   maxValue,
-  isStepped,
-  stepSize,
   leftIcon,
   rightIcon,
-}) => {
+}: SliderProps) => {
   const [value, setValue] = useState(defaultValue);
-  const sliderRef = useRef(null);
-  const [region, setRegion] = useState("middle");
+  const sliderRef = useRef<HTMLDivElement>(null);
   const clientX = useMotionValue(0);
-  const overflow = useMotionValue(0);
-  const scale = useMotionValue(1);
 
-  useMotionValueEvent(clientX, "change", (latest) => {
-    if (!sliderRef.current) return;
-    const { left, right } = sliderRef.current.getBoundingClientRect();
-    let newValue = 0;
-
-    if (latest < left) {
-      setRegion("left");
-      newValue = left - latest;
-    } else if (latest > right) {
-      setRegion("right");
-      newValue = latest - right;
-    } else {
-      setRegion("middle");
-    }
-
-    overflow.jump(decay(newValue, MAX_OVERFLOW));
-  });
-
-  const handlePointerMove = (e) => {
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     if (e.buttons > 0 && sliderRef.current) {
       const { left, width } = sliderRef.current.getBoundingClientRect();
       let newValue =
@@ -300,8 +281,9 @@ const Slider = ({
 
       <div
         ref={sliderRef}
-        className="relative flex w-full items-center py-2"
+        className="relative flex w-full items-center py-2 cursor-pointer"
         onPointerMove={handlePointerMove}
+        onPointerDown={handlePointerMove} // Allows clicking to jump
       >
         <motion.div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
           <div
@@ -315,8 +297,3 @@ const Slider = ({
     </motion.div>
   );
 };
-
-function decay(value, max) {
-  const entry = value / max;
-  return (2 * (1 / (1 + Math.exp(-entry)) - 0.5)) * max;
-}
