@@ -97,39 +97,4 @@ export default function SpotifyWidget() {
                 }}
               >
                 {/* PROPER MUSIC NOTE ICON */}
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M9 18V5l12-2v13"></path>
-                  <circle cx="6" cy="18" r="3"></circle>
-                  <circle cx="18" cy="16" r="3"></circle>
-                </svg>
-              </div>
-            )}
-          </div>
-
-          {/* TEXT */}
-          <div style={{ display: "flex", flexDirection: "column", flex: 1, overflow: "hidden" }}>
-            <span
-              style={{
-                fontWeight: 600,
-                fontSize: "15px",
-                letterSpacing: "-0.3px",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-              }}
-            >
-              {isPlaying ? song.title : "Not Playing"}
-            </span>
-            <span
-              style={{
-                fontSize: "13px",
-                opacity: 0.6,
-                letterSpacing: "-0.1px",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-              }}
-            >
-              {isPlaying ? song.artist : "Spotify"}
-            </span>
-          </div>
+                <svg xmlns="
