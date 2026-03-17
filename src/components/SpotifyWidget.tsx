@@ -81,8 +81,39 @@ export default function SpotifyWidget() {
         {/* TOP ROW */}
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           
-          {/* 🎵 MUSIC ENERGY ICON */}
-          <div style={{ position: "relative", width: 44, height: 44 }}>
+          <div style={{
+  display: "flex",
+  alignItems: "center",
+  gap: "6px",
+  minWidth: "40px"
+}}>
+  {/* Music note */}
+  <span style={{
+    fontSize: "18px",
+    color: isPlaying ? "#1db954" : "#aaa",
+    transition: "0.3s"
+  }}>
+    ♪
+  </span>
+
+  {/* Minimal equalizer */}
+  {isPlaying && (
+    <div style={{ display: "flex", gap: "2px" }}>
+      {[...Array(3)].map((_, i) => (
+        <div
+          key={i}
+          style={{
+            width: "2px",
+            height: "10px",
+            background: "#1db954",
+            borderRadius: "2px",
+            animation: `eq 1s infinite ${i * 0.2}s`,
+          }}
+        />
+      ))}
+    </div>
+  )}
+</div>
             
             <div
               style={{
