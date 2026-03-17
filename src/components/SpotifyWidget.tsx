@@ -37,53 +37,32 @@ export default function SpotifyWidget() {
           bottom: "28px",
           right: "28px",
           zIndex: 9999,
-
-          padding: isPlaying
-            ? hover ? "18px" : "14px"
-            : "12px",
-
+          padding: hover ? "18px" : "14px",
           borderRadius: "22px",
-
-          width: isPlaying
-            ? hover ? "320px" : "260px"
-            : hover ? "220px" : "160px",
-
+          width: hover ? "280px" : "220px",
           display: "flex",
           flexDirection: "column",
-          gap: isPlaying ? "12px" : "6px",
-
+          gap: "12px",
           backdropFilter: "blur(18px)",
-
           background: isPlaying
             ? "linear-gradient(135deg, rgba(29,185,84,0.15), rgba(0,0,0,0.6))"
             : "linear-gradient(135deg, rgba(255,255,255,0.05), rgba(0,0,0,0.6))",
-
           border: "1px solid rgba(255,255,255,0.08)",
-
           boxShadow: isPlaying
             ? "0 0 40px rgba(29,185,84,0.35)"
-            : "0 0 20px rgba(255,255,255,0.05)",
-
+            : "0 0 25px rgba(255,255,255,0.05)",
           color: "white",
-
-          transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
-
-          transform: hover
-            ? "scale(1.05)"
-            : isPlaying
-              ? "scale(1.02)"
-              : "scale(1)",
-
-          overflow: "hidden",
-          animation: isPlaying ? "fadeIn 0.4s ease" : "none",
+          transition: "all 0.35s ease",
+          transform: hover ? "scale(1.03)" : "scale(1)",
         }}
       >
-        {/* TOP ROW */}
+        {/* TOP */}
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           
           {/* 🎵 MUSIC ENERGY ICON */}
-          <div style={{ position: "relative", width: 44, height: 44 }}>
+          <div style={{ position: "relative", width: hover ? 56 : 44, height: hover ? 56 : 44 }}>
             
+            {/* Glow */}
             <div
               style={{
                 position: "absolute",
@@ -97,6 +76,7 @@ export default function SpotifyWidget() {
               }}
             />
 
+            {/* Floating Note */}
             <div
               style={{
                 position: "absolute",
@@ -104,7 +84,7 @@ export default function SpotifyWidget() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: "18px",
+                fontSize: hover ? "22px" : "18px",
                 color: isPlaying ? "#1db954" : "#aaa",
                 animation: "floatNote 3s ease-in-out infinite",
               }}
@@ -112,6 +92,7 @@ export default function SpotifyWidget() {
               ♪
             </div>
 
+            {/* Beat particles */}
             {isPlaying && (
               <>
                 <div style={{
@@ -143,14 +124,7 @@ export default function SpotifyWidget() {
           <div style={{ display: "flex", flexDirection: "column" }}>
             {isPlaying ? (
               <>
-                <span style={{
-                  fontWeight: 600,
-                  fontSize: "14px",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  maxWidth: "180px",
-                }}>
+                <span style={{ fontWeight: 600, fontSize: "14px" }}>
                   {song.title}
                 </span>
                 <span style={{ fontSize: "11px", opacity: 0.6 }}>
@@ -159,7 +133,7 @@ export default function SpotifyWidget() {
               </>
             ) : (
               <>
-                <span style={{ fontWeight: 600, fontSize: "13px" }}>
+                <span style={{ fontWeight: 600, fontSize: "14px" }}>
                   Spotify Idle
                 </span>
                 <span style={{ fontSize: "11px", opacity: 0.5 }}>
@@ -169,7 +143,7 @@ export default function SpotifyWidget() {
             )}
           </div>
 
-          {/* WAVEFORM */}
+          {/* Waveform */}
           {isPlaying && (
             <div style={{ display: "flex", gap: "3px", marginLeft: "auto" }}>
               {[...Array(5)].map((_, i) => (
@@ -242,17 +216,6 @@ export default function SpotifyWidget() {
           @keyframes progress {
             0% { transform: translateX(-100%); }
             100% { transform: translateX(100%); }
-          }
-
-          @keyframes fadeIn {
-            from {
-              opacity: 0;
-              transform: translateY(10px) scale(0.95);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0px) scale(1);
-            }
           }
         `}
         </style>
