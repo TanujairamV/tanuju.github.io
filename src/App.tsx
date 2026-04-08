@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
-import MagneticCursor from './components/MagneticCursor';
+import GlassCursor from './components/GlassCursor';
 import SpotifyWidget from './components/SpotifyWidget';
 import DynamicIsland from './components/DynamicIsland';
-import Header from './components/Header';
+import Header from './components/Navbar';
 import Home from './pages/Home';
 import Fun from './pages/Fun';
 import Certificates from './pages/Certificates';
@@ -15,7 +15,7 @@ import './App.css';
 function App() {
   return (
     <>
-      <MagneticCursor />
+      <GlassCursor />
       <Header />
       <DynamicIsland />
       <SpotifyWidget />

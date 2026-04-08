@@ -1,33 +1,70 @@
 :root {
-  --bg-color: #0f1115;
-  --bg-gradient: radial-gradient(circle at top, #1a1e26 0%, #0f1115 100%);
-  --text-main: #f3f4f6;
-  --text-muted: #9ca3af;
-  --accent-color: #3b82f6; /* Premium Blue */
-  --accent-glow: rgba(59, 130, 246, 0.4);
-  --glass-bg: rgba(255, 255, 255, 0.03);
+  /* =========================
+     BACKGROUND (MUI DARK)
+  ========================= */
+  --bg-color: #0B0F19;
+  --bg-gradient: radial-gradient(circle at top, #151A2C 0%, #0B0F19 100%);
+
+  /* =========================
+     SURFACE (ELEVATION)
+  ========================= */
+  --surface-1: #121826;
+  --surface-2: #1A2236;
+
+  /* =========================
+     TEXT
+  ========================= */
+  --text-main: #E5E7EB;
+  --text-muted: #9CA3AF;
+
+  /* =========================
+     PRIMARY (MUI BLUE)
+  ========================= */
+  --primary-main: #3B82F6;
+  --primary-light: #60A5FA;
+  --primary-dark: #1D4ED8;
+
+  /* =========================
+     SECONDARY (PURPLE ACCENT)
+  ========================= */
+  --secondary-main: #8B5CF6;
+  --secondary-light: #A78BFA;
+
+  /* =========================
+     EFFECTS
+  ========================= */
+  --accent-glow: rgba(59, 130, 246, 0.5);
+
+  /* =========================
+     GLASS
+  ========================= */
+  --glass-bg: rgba(255, 255, 255, 0.04);
   --glass-border: rgba(255, 255, 255, 0.08);
 }
 
+/* RESET */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/* BODY */
 body {
   font-family: 'Inter', sans-serif;
   background: var(--bg-color);
   background-image: var(--bg-gradient);
   color: var(--text-main);
   min-height: 100vh;
-  margin: 0;
   overflow-x: hidden;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
   cursor: none;
 }
 
+/* HEADINGS */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
@@ -35,6 +72,7 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.1;
 }
 
+/* LINKS */
 a {
   color: inherit;
   text-decoration: none;
@@ -42,37 +80,61 @@ a {
 }
 
 a:hover {
-  color: var(--accent-color);
+  color: var(--primary-main);
 }
 
+/* LIST */
 ul {
   list-style: none;
 }
 
-/* Utilities */
+/* =========================
+   UTILITIES
+========================= */
+
+/* GLASS EFFECT */
 .glass {
   background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--glass-border);
 }
 
+/* SURFACE CARDS */
+.surface {
+  background: var(--surface-1);
+  border: 1px solid var(--glass-border);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.surface:hover {
+  background: var(--surface-2);
+  transform: translateY(-4px);
+}
+
+/* TEXT GRADIENT */
 .text-gradient {
-  background: linear-gradient(135deg, #fff 0%, #9ca3af 100%);
+  background: linear-gradient(135deg, #ffffff, #9CA3AF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
 }
 
+/* ACCENT GRADIENT */
 .text-gradient-accent {
-  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+  background: linear-gradient(
+    135deg,
+    var(--primary-light),
+    var(--secondary-light)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
 }
 
+/* LAYOUT */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -83,6 +145,10 @@ ul {
   padding: 6rem 0;
 }
 
+/* =========================
+   BUTTONS (MUI STYLE)
+========================= */
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -90,30 +156,49 @@ ul {
   padding: 0.75rem 1.5rem;
   border-radius: 9999px;
   font-weight: 600;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
   cursor: pointer;
   border: none;
   font-family: inherit;
 }
 
+/* PRIMARY BUTTON */
 .btn-primary {
-  background: var(--accent-color);
+  background: var(--primary-main);
   color: white;
   box-shadow: 0 4px 14px var(--accent-glow);
 }
 
 .btn-primary:hover {
+  background: var(--primary-light);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px var(--accent-glow);
 }
 
+.btn-primary:active {
+  background: var(--primary-dark);
+  transform: translateY(0);
+}
+
+/* SECONDARY BUTTON */
 .btn-secondary {
-  background: var(--glass-bg);
+  background: var(--surface-1);
   color: var(--text-main);
   border: 1px solid var(--glass-border);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-2);
   transform: translateY(-2px);
+}
+
+/* OPTIONAL OUTLINE BUTTON */
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--primary-main);
+  color: var(--primary-light);
+}
+
+.btn-outline:hover {
+  background: rgba(59, 130, 246, 0.1);
 }
